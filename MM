@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miracle Marathon Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f9fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            color: #005d9a;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .counter-container {
+            background-color: #e8f4fc;
+            border: 2px solid #04a0dd;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 250px;
+            margin: 0 auto;
+            font-size: 4.5em;
+            color: #005d9a;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .description-container {
+            font-size: 1.5em;
+            color: #555;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Smooth transition for the counter */
+        h2 {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        h2.active {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="counter-container">
+            <h2 id="counter">0</h2>
+        </div>
+        <div class="description-container">
+            <p><strong>Children Have Been Admitted to a CMN Member Hospital</strong></p>
+            <p><strong>SINCE THE BEGINNING OF THIS EVENT</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function startCounter() {
+            // Set the event start time to 1:40 PM Central Time (CT)
+            const eventStart = new Date();
+            eventStart.setUTCHours(22, 30, 0, 0); // 1:40 PM Central Time (UTC +6 for CT during standard time)
+
+            const now = new Date();
+            if (now < eventStart) return; // Do nothing if event hasn't started
+            
+            let minutesElapsed = Math.floor((now - eventStart) / 60000);
+            let count = minutesElapsed * 72;
+            document.getElementById("counter").innerText = count;
+
+            // Make the counter text animate
+            setInterval(() => {
+                count += 72;
+                const counter = document.getElementById("counter");
+                counter.innerText = count;
+
+                // Add a smooth scale effect to the counter when it updates
+                counter.classList.add("active");
+                setTimeout(() => counter.classList.remove("active"), 500);
+            }, 60000);
+        }
+
+        startCounter();
+    </script>
+</body>
+</html>
